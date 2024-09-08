@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import random
+import time
+from IPython import get_ipython
+
+ipython = get_ipython()
+cont_viz = False
 
 def generate_sudoku(n=3):
     """ Generate a complete Sudoku board """
@@ -34,6 +39,11 @@ def generate_sudoku(n=3):
                     for num in random.sample(range(1, N+1), N):
                         if is_valid(board, row, col, num):
                             board[row][col] = num
+                            
+                            if cont_viz: 
+                                visualize_board(board)
+                                time.sleep(0.25)
+                                
                             if solve(board):
                                 return True
                             board[row][col] = 0
@@ -44,7 +54,9 @@ def generate_sudoku(n=3):
     solve(board)
     return board
 
+
 def print_board(board):
+    ipython.magic('clear')
     n = int(len(board)**0.5)
     for i, row in enumerate(board):
         if i % n == 0 and i != 0:
@@ -54,6 +66,25 @@ def print_board(board):
             for j in range(0, len(row), n)
         ))
 
+def visualize_board(board):
+    ipython.magic('clear')    
+    print("+" + "---+" * 7)
+    for i, row in enumerate(board):
+        print("|", end="")
+        for j, num in enumerate(row):
+            if num == 0:
+                print(" . ", end="")
+            else:
+                print(f" {num} ", end="")
+            if (j + 1) % 3 == 0:
+                print("|", end="")
+        print()
+        if (i + 1) % 3 == 0:
+            print("+" + "---+" * 7)
+        else:
+            print("+" + "   +" * 7)
+
+
 # Generate and print a Sudoku board
 sudoku_board = generate_sudoku()
-print_board(sudoku_board)
+visualize_board(sudoku_board)
