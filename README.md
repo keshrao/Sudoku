@@ -9,14 +9,6 @@ This project provides tools for generating, solving, and visualizing Sudoku puzz
 - Visualize the solving process in real-time
 - Clear console utility for better visualization
 
-## Usage
-
-Run the main script to generate and visualize a Sudoku puzzle:
-
-```
-python sudoku_generator.py
-```
-
 ## Algorithm
 
 The Sudoku generator and solver use a backtracking algorithm:
